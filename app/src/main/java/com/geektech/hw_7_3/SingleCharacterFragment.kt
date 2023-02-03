@@ -11,6 +11,7 @@ import com.geektech.hw_7_3.databinding.FragmentSingleCharacterBinding
 class SingleCharacterFragment : Fragment() {
 
     private lateinit var binding: FragmentSingleCharacterBinding
+    private lateinit var navArgs: SingleCharacterFragmentArgs
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,9 +23,11 @@ class SingleCharacterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val result: Character = arguments?.getSerializable("key") as Character
-        binding.tvCharacterName.text = result.name
-        binding.ivSingleCharacter.setImageResource(result.image)
-        binding.tvCharacterStatus.text = result.status
+        arguments?.let {
+            navArgs = SingleCharacterFragmentArgs.fromBundle(it)
+        }
+        binding.tvCharacterName.text = navArgs.character.name
+        binding.tvCharacterStatus.text = navArgs.character.status
+        binding.ivSingleCharacter.setImageResource(navArgs.character.image)
     }
 }
